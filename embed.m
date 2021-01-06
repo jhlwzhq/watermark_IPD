@@ -1,11 +1,6 @@
+function time_ans=embed(timeStamp,time,watermark)
 format long;
-rand('seed',9);
-watermark=[0 1 1]; %需要嵌入的二进制向量水印信息
-%time=[0.0003 0.00032 0.00035 0.00037 0.00037 0.00038 0.00039 0.00040 0.00042 0.00045 0.00053 0.00055 0.00061 0.00063 0.00063 0.00080];%数据包发送时间
-time=[1609814809.667154 1609814809.667154 1609814809.667157 1609814809.667158 ...
-    1609814809.677617 1609814809.677619 1609814809.677624 1609814809.677625 ...
-    1609814809.680095 1609814809.680961 1609814809.680962 1609814809.680964 ...
-    1609814809.680964 1609814809.682885 1609814809.682887]
+rand('seed',getRandom(timeStamp));
 
 time_length=length(time); %总数据包个数
 watermark_length=length(watermark); %需要添加的水印长度
@@ -76,6 +71,8 @@ end
 time_ans=[time_ans time_i_front time_i_rear time(offset+watermark_length*4*s+1:end)]; %更新发送时间
 index_ans=[index_ans;rand_index]; %更新分组记录
 
-time_ans
-index_ans
-offset
+%time_ans
+%index_ans
+%offset
+
+end

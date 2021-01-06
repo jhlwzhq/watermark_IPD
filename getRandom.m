@@ -7,6 +7,6 @@ if nargin==0
     timeStamp=61234;
     timeStamp=timeStamp*112345123;
 end
-r=mod(timeStamp/1000,10000000)/60
-r=mod(floor(r*37/3),10000)
+r=mod(timeStamp/1000,10000000)/60;
+r=mod(floor(r*37/3),10000);
 end
