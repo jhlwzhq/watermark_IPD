@@ -1,13 +1,15 @@
-function watermark=extract(timeStamp,time)
+%功能：实现水印解码
+%输入：当前时间戳timeStamp，数据包时间戳time，水印长度watermark_length,数据长度s（4s确定一位水印）
+%输出：解码获得的水印watermark
+function watermark=Extract(timeStamp,time,watermark_length,s)
 format long;
 rand('seed',getRandom(timeStamp));
 
-s=1;
-watermark_length=3;%水印长度
-%**水印长度未知 使用定长的水印？**
+head=rand(1,1); %数据头
+
 time_length=length(time); %总数据包个数
 data_length=watermark_length*4*s; %嵌入水印需要用到的数据包个数
-offset=unidrnd(time_length-data_length,1,1)
+offset=unidrnd(time_length-data_length,1,1);
 
 index=[];
 for i=1:watermark_length
@@ -35,6 +37,5 @@ for i=1:watermark_length %外部循环 将时间分为watermark_length组 提取第i个水印
     end
 end
 
-%watermark
 
 end
