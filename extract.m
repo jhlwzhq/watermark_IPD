@@ -1,7 +1,7 @@
 %功能：实现水印解码
 %输入：当前时间戳timeStamp，数据包时间戳time，水印长度watermark_length,数据长度s（4s确定一位水印）
 %输出：解码获得的水印watermark
-function watermark=Extract(timeStamp,time,watermark_length,s)
+function watermark=extract(timeStamp,time,watermark_length,s)
 format long;
 rand('seed',getRandom(timeStamp));
 

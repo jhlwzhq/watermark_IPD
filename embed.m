@@ -1,7 +1,7 @@
 %功能：实现水印转换
 %输入：当前时间戳timeStamp，数据包时间戳time，需要添加的水印watermark，数据长度s（4s确定一位水印）
 %输出：基于第一个数据包的各数据包时延time_ans,0~1间的数据头head
-function [time_ans,head]=Embed(timeStamp,time,watermark,s)
+function [time_ans,head]=embed(timeStamp,time,precision,watermark,s)
 format long;
 rand('seed',getRandom(timeStamp));
 
@@ -41,8 +41,8 @@ for i=1:watermark_length %外部循环 将时间分为watermark_length组 嵌入第i个水印
         if(ipd_diff<0) continue; end
       %  disp("不满足条件,调整数据发送时间");
         while(ipd_diff>=0) %不满足条件 调整数据发送时间
-            time_i_rear(rand_index(1:s))=time_i_rear(rand_index(1:s))+0.000001; %延迟A组第二个数据包发送时间
-            time_i_front(rand_index(s+1:end))=time_i_front(rand_index(s+1:end))+0.000001; %延迟B组第一个数据包发送时间
+            time_i_rear(rand_index(1:s))=time_i_rear(rand_index(1:s))+precision; %延迟A组第二个数据包发送时间
+            time_i_front(rand_index(s+1:end))=time_i_front(rand_index(s+1:end))+precision; %延迟B组第一个数据包发送时间
     %**如何确定延迟多长时间为最优解？与网络本身的时间差有关，按照百分比延迟？**
             
             ipd=time_i_front-time_i_rear; %计算差值IPD
@@ -59,8 +59,8 @@ for i=1:watermark_length %外部循环 将时间分为watermark_length组 嵌入第i个水印
         if(ipd_diff>=0) continue; end
         %disp("不满足条件,调整数据发送时间");
         while(ipd_diff<0) %不满足条件 调整数据发送时间
-            time_i_front(rand_index(1:s))=time_i_front(rand_index(1:s))+0.000001; %延迟A组第一个数据包发送时间
-            time_i_rear(rand_index(s+1:end))=time_i_rear(rand_index(s+1:end))+0.000001; %延迟B组第二个数据包发送时间
+            time_i_front(rand_index(1:s))=time_i_front(rand_index(1:s))+precision; %延迟A组第一个数据包发送时间
+            time_i_rear(rand_index(s+1:end))=time_i_rear(rand_index(s+1:end))+precision; %延迟B组第二个数据包发送时间
             
             ipd=time_i_front-time_i_rear; %计算差值IPD
             ipd_a=ipd(rand_index(1:s)); %A组 
@@ -79,9 +79,5 @@ for i=2:length(time)
     time_ans(i)=time_ans(i)-time_ans(1);
 end
 time_ans(1)=0;
-
-%time_ans
-%index_ans
-%offset
 
 end

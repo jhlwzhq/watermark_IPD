@@ -5,7 +5,7 @@ time=[1609814809.667154 1609814809.667154 1609814809.667157 1609814809.667158 ..
 
 watermark=[1 0 1]; %需要嵌入的二进制向量水印信息
 timeStamp=1457476;
-[embed_time,head]=Embed(timeStamp,time,watermark,1)
+[embed_time,head]=embed(timeStamp,time,0.0001,watermark,1)
 if(containWatermark(timeStamp,head))
-    extract_watermark=Extract(timeStamp,embed_time,3,1)
+    extract_watermark=extract(timeStamp,embed_time,3,1)
 end
