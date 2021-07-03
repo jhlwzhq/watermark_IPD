@@ -7,27 +7,27 @@ public class Test {
     {
 		IPD ipd=new IPD();
 		
-		double timeStamp=21937;
+		long timeStamp=21937;
 		int s=1;
 		int watermark_length=3;
-		double precision=0.0001;
+		long precision=1;
 		
-		ArrayList<Double> time=new ArrayList<Double>();
-		time.add(667.154);time.add(667.154);time.add(667.157);time.add(667.158);
-		time.add(677.617);time.add(677.619);time.add(677.624);time.add(677.625);
-		time.add(680.095);time.add(680.961);time.add(680.926);time.add(680.964);
-		time.add(680.964);time.add(682.885);time.add(682.887);
+		ArrayList<Long> time=new ArrayList<Long>();
+		time.add((long)667154);time.add((long)667154);time.add((long)667157);time.add((long)667158);
+		time.add((long)677617);time.add((long)677619);time.add((long)677624);time.add((long)677625);
+		time.add((long)680095);time.add((long)680961);time.add((long)680926);time.add((long)680964);
+		time.add((long)680964);time.add((long)682885);time.add((long)682887);
 		
 		ArrayList<Integer> watermark=new ArrayList<Integer>();
-		watermark.add(1);watermark.add(0);watermark.add(1);
+		watermark.add(1);watermark.add(1);watermark.add(1);
 		
-		ArrayList<Double> time_ans=new ArrayList<Double>();
+		ArrayList<Long> time_ans=new ArrayList<Long>();
 		time_ans=ipd.embed(timeStamp, time, precision, watermark, s);
 		System.out.println("time_ans:");
 		for(int i=0;i<time_ans.size();i++)
 			System.out.println(time_ans.get(i));
 		
-		double containPrecision=0.00001;
+		long containPrecision=1;
 		if(ipd.containWatermark(timeStamp, time_ans.get(0), containPrecision))
 		{
 			ArrayList<Integer> watermark_ans=new ArrayList<Integer>();
